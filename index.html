@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+
+
+
+function addDashes(num) {
+  num = num.toString().split('').map(i => Number(i));
+  let res = [];
+  for(let i = 0; i < num.length; i++) {
+    const isOdd = num[i] % 2;
+    if(i === num.length - 1 || num[i+1] % 2 === isOdd) {
+      res.push(num[i]);
+    } else {
+      res.push(num[i] + '-');
+    }
+  }
+  return res.join('');
+}
+console.log(addDashes(645545965));
+console.log(addDashes(411222333));
+console.log(addDashes(81229576231));
+
+function autofill(str, words) {
+  const saveRegister = str;
+  const saveWords = words;
+  let resIndexes = [];
+
+  str = str.toLowerCase().replace(/[^a-z]/g, '');
+  words = words.map(word => word.toLowerCase());
+
+  const find = (str, word) => {
+    if(str.length <= 0) {
+      return false;
+    } else if(word.startsWith(str)) {
+      return true;
+    }
+    const minStr = str.slice(0, -1);
+    return find(minStr, word);
+  }
+
+  for(let i = 0; i < words.length; i++) {
+    const isFound = find(str, words[i]); 
+    isFound ? resIndexes.push(i) : false;
+  }
+
+  let result = saveWords.filter((word, index) => {
+    for(let resIndex of resIndexes) {
+      if(resIndex == index) {
+        return true;
+      }
+    }
+  });
+
+  result.length > 5 ? result.length = 5 : true;
+
+  return result;
+}
+
+console.log(autofill('1!Li@Ra',  ['light', 'lime', 'slime', 'ball', 'l', 'lima', 'leonardo', 'leo', 'leon']));
+console.log(autofill('Rima',  ['right', 'lime', 'slEre', 'l']));
+
+</script>
+</body>
+</html>
