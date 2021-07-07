@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 
-const App = () => {
+export const Validation = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailDirty, setEmailDirty] = useState(false);
@@ -24,9 +23,10 @@ const App = () => {
     switch (event.target.name) {
       case 'email':
         setEmailDirty(false);
+        break;
       case 'password':
         setPasswordDirty(false);
-      break;
+        break;
     }
   }
 
@@ -36,7 +36,7 @@ const App = () => {
 
     const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if(!re.test(String(value).toLowerCase())) {
-      value.length == 0 ? 
+      value.length === 0 ? 
         setEmailError('Email cannot be empty') : 
         setEmailError('Email is incorrect');
     } else {
@@ -49,7 +49,7 @@ const App = () => {
     setPassword(event.target.value);
 
     if(value.length < 5 || value.length > 12) {
-      value.length == 0 ? 
+      value.length === 0 ? 
         setPasswordError('Password cannot be empty') : 
         setPasswordError('Password is incorrect');
     } else {
@@ -92,5 +92,3 @@ const App = () => {
     </form>
   );
 }
-
-ReactDOM.render(<App />, document.querySelector('#root'));
